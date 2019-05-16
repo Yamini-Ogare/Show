@@ -25,24 +25,12 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView ;
     ListAdapter adapter ;
-    ArrayList<String> arrayList = new ArrayList<>();
+    ArrayList<File> arrayList = new ArrayList<>();
     final int STORAGE_PERMISSION=1;
     final int SUB_REQUEST=2;
  //   final int IMG_REQUEST=3;
     int i=0;
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // get the subfolders from the accessed folder
-
-
-
-
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +39,15 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView)findViewById(R.id.sub);
 
-        openFolder(SUB_REQUEST);
-
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new ListAdapter(arrayList, MainActivity.this);
         recyclerView.setAdapter(adapter);
+
+        openFolder(SUB_REQUEST);
+
 
     }
 
@@ -73,10 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
                 openFolder(SUB_REQUEST);
 
-               /* if (externalStorageAvailable()) {
-
-                    openFolder(SUB_REQUEST);
-                }*/
             }
         }
     }
@@ -94,8 +79,13 @@ public class MainActivity extends AppCompatActivity {
 
             // get access to the folder named Show
 
-            File storageDir = new File(Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_DCIM), "Show");
+            File storageDir = new File(Environment.getExternalStorageDirectory(),"Show");
+
+            if(!storageDir.exists()){
+
+                storageDir.mkdirs();
+
+            }
 
             File f = new File(storageDir.getPath());
             File file[] = f.listFiles();
@@ -103,24 +93,17 @@ public class MainActivity extends AppCompatActivity {
 
             if(file.length>0) {
 
-
-                arrayList.add(file[i++].toString());
+                for(i=0; i<file.length ; i++)
+                arrayList.add(file[i]);
 
             }
 
-
-
+            adapter.notifyDataSetChanged();
 
         }
 
 
     }
-
-   /* private boolean externalStorageAvailable() {
-        return
-                Environment.MEDIA_MOUNTED
-                        .equals(Environment.getExternalStorageState());
-    }*/
 
 
 }

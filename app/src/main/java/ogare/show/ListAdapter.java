@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -16,10 +18,10 @@ import java.util.ArrayList;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder >{
 
-    ArrayList<String> arrayList ;
+    ArrayList<File> arrayList ;
     Context context ;
 
-    public ListAdapter(ArrayList<String> arrayList, Context context) {
+    public ListAdapter(ArrayList<File> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
     }
@@ -35,7 +37,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder >
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        holder.editText.setText(arrayList.get(position).toString());
+        holder.textView.setText(arrayList.get(position).getName());
 
     }
 
@@ -46,12 +48,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder >
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
-        EditText editText ;
+        TextView textView;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            editText = itemView.findViewById(R.id.sub);
+            textView = itemView.findViewById(R.id.name);
         }
     }
 }
