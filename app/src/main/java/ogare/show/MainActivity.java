@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new ListAdapter(arrayList, MainActivity.this);
+        adapter = new ListAdapter(arrayList,1, MainActivity.this);
         recyclerView.setAdapter(adapter);
 
         openFolder(SUB_REQUEST);
@@ -105,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 
 
 

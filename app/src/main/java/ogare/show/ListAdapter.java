@@ -3,11 +3,15 @@ package ogare.show;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.File;
@@ -21,24 +25,60 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder >
 
     ArrayList<File> arrayList ;
     Context context ;
+    int type;
 
-    public ListAdapter(ArrayList<File> arrayList, Context context) {
+    public ListAdapter(ArrayList<File> arrayList,int type, Context context) {
         this.arrayList = arrayList;
         this.context = context;
+        this.type = type;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return  type;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         View v;
-        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_subfolder, parent, false);
+
+        if(viewType == 1)
+        { v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_subfolder, parent, false); }
+
+        else
+        { v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image, parent, false); }
+
         MyViewHolder viewHolder = new MyViewHolder(v);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
 
-        holder.textView.setText(arrayList.get(position).getName());
+        if(type==1) {
+
+            holder.textView.setText(arrayList.get(position).getName());
+            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+                    Intent intent = new Intent(context, DisplayActivity.class);
+                    intent.putExtra("File", arrayList.get(position).getAbsoluteFile());
+                    context.startActivity(intent);
+
+                }
+            });
+        }
+        else {
+
+            String filePath = arrayList.get(position).getPath();
+            Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+
+            holder.imageview.setImageBitmap(bitmap);
+        }
+
 
     }
 
@@ -50,22 +90,19 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder >
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView textView;
+        ImageView imageview;
+        LinearLayout linearLayout;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             textView = itemView.findViewById(R.id.name);
-
+            imageview = itemView.findViewById(R.id.img);
+            linearLayout = itemView.findViewById(R.id.detail);
         }
 
 
     }
 
-    /*public void showimage(View view) {
 
-        Intent intent = new Intent(context , DisplayActivity.class);
-        intent.putExtra("Name",arrayList.get(p));
-        context.startActivity(intent);
-
-    }*/
 }
