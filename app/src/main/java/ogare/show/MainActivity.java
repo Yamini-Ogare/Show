@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<File> arrayList = new ArrayList<>();
     final int STORAGE_PERMISSION=1;
     final int SUB_REQUEST=2;
- //   final int IMG_REQUEST=3;
     int i=0;
 
 
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new ListAdapter(arrayList,1, MainActivity.this);
+        adapter = new ListAdapter(arrayList,1,MainActivity.this);
         recyclerView.setAdapter(adapter);
 
         openFolder(SUB_REQUEST);

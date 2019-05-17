@@ -73,10 +73,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder >
         }
         else {
 
+
+
             String filePath = arrayList.get(position).getPath();
             Bitmap bitmap = BitmapFactory.decodeFile(filePath);
 
             holder.imageview.setImageBitmap(bitmap);
+
         }
 
 
@@ -93,12 +96,14 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder >
         ImageView imageview;
         LinearLayout linearLayout;
 
+
         public MyViewHolder(View itemView) {
             super(itemView);
 
             textView = itemView.findViewById(R.id.name);
             imageview = itemView.findViewById(R.id.img);
             linearLayout = itemView.findViewById(R.id.detail);
+
         }
 
 
