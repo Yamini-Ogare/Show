@@ -2,6 +2,7 @@ package ogare.show;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +55,17 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder >
             super(itemView);
 
             textView = itemView.findViewById(R.id.name);
+
         }
+
+
     }
+
+    /*public void showimage(View view) {
+
+        Intent intent = new Intent(context , DisplayActivity.class);
+        intent.putExtra("Name",arrayList.get(p));
+        context.startActivity(intent);
+
+    }*/
 }
