@@ -126,7 +126,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder >
                      //   boolean t = arrayList.get(position).delete();
                        //     arrayList.remove(position);
 
-                      String path = arrayList.get(position).getPath();
+                      //String path = arrayList.get(position).getPath();
 
                             arrayList.remove(position);
                              try {
