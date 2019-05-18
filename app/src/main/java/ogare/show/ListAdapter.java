@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -75,10 +78,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder >
 
            //convert file to bitmap to set in image view
 
-            String filePath = arrayList.get(position).getPath();
-            Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+          //  String filePath = arrayList.get(position).getPath();
+            /*Bitmap bitmap = BitmapFactory.decodeFile(filePath);*/
 
-            holder.imageview.setImageBitmap(bitmap);
+            Uri imageUri = Uri.fromFile(arrayList.get(position));
+
+            Glide.with(context)
+                    .load(imageUri)
+                    .into(holder.imageview);
+
+         //   holder.imageview.setImageBitmap(bitmap);
 
         }
 
