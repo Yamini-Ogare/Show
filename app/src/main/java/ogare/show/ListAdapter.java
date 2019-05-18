@@ -73,7 +73,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder >
         }
         else {
 
-
+           //convert file to bitmap to set in image view
 
             String filePath = arrayList.get(position).getPath();
             Bitmap bitmap = BitmapFactory.decodeFile(filePath);
