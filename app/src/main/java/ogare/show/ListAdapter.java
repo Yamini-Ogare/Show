@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -112,8 +113,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder >
 
                             boolean l = arrayList.get(position).delete();
 
+                        if(l) {
                             arrayList.remove(position);
                             notifyDataSetChanged();
+                        } else
+                            Toast.makeText(context, "Cannot DELETE", Toast.LENGTH_SHORT);
+
                             alertDialog.dismiss();
 
                         }
