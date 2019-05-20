@@ -110,31 +110,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder >
                         public void onClick(View view) {
                             // delete file from storage
 
-                         /* boolean k=  arrayList.get(position).delete();
-                            if(arrayList.get(position).exists()){
-                                try {
-                                  boolean m=  arrayList.get(position).getCanonicalFile().delete();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                if(arrayList.get(position).exists()){
-                                   boolean o = context.deleteFile(arrayList.get(position).getName());
-                                }
-                            }*/
-
-
-                     //   boolean t = arrayList.get(position).delete();
-                       //     arrayList.remove(position);
-
-                      //String path = arrayList.get(position).getPath();
+                            boolean l = arrayList.get(position).delete();
 
                             arrayList.remove(position);
-                             try {
-                                boolean l = arrayList.get(position).getCanonicalFile().delete();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
                             notifyDataSetChanged();
                             alertDialog.dismiss();
 

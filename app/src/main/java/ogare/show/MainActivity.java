@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     ListAdapter adapter;
     ArrayList<File> arrayList = new ArrayList<>();
     final int READ_STORAGE_PERMISSION = 1;
-    //   final int WRITE_STORAGE_PERMISSION = 3;
+    final int WRITE_STORAGE_PERMISSION = 3;
 
     final int SUB_REQUEST = 2;
     int i = 0;
@@ -69,7 +69,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        if (requestCode == WRITE_STORAGE_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                openFolder(SUB_REQUEST);
+
+            }
+        }
+
     }
+
 
 
     private void openFolder(int sub_request) {
@@ -81,42 +90,52 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_STORAGE_PERMISSION);
 
         } else {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_STORAGE_PERMISSION);
+
+            } else {
 
             boolean success = true;
 
             // get access to the folder named Show
 
-            File storageDir = new File(Environment.getExternalStorageDirectory(), "Show");
+               File storageDir = new File(Environment.getExternalStorageDirectory(), "Show");
+
             // if Folder does not exist then create folder
             if (!storageDir.exists()) {
-                    success = storageDir.mkdir();
-                    Toast.makeText(getApplicationContext(), "Folder created", Toast.LENGTH_LONG).show();
+                success = storageDir.mkdir();
+                Toast.makeText(getApplicationContext(), "Folder created", Toast.LENGTH_LONG).show();
 
             }
 
-                if (success) {
-                    // Access the storage path and get all its file
+            if (success) {
+                // Access the storage path and get all its file
 
-                    File f = new File(storageDir.getPath());
-                    File file[] = f.listFiles();
+                File f = new File(storageDir.getPath());
+                File file[] = f.listFiles();
 
-                    if (file == null) {
-                        Toast.makeText(getApplicationContext(), "Folder is empty", Toast.LENGTH_LONG).show();
-                    } else {
 
-                        if (file.length > 0) {
+                    if (file.length > 0) {
 
-                            for (i = 0; i < file.length; i++)
-                                arrayList.add(file[i]);
-
-                        }
-
-                        adapter.notifyDataSetChanged();
+                        for (i = 0; i < file.length; i++)
+                            arrayList.add(file[i]);
                     }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Error encountered", Toast.LENGTH_LONG).show();
+
+                    adapter.notifyDataSetChanged();
+
+                if (arrayList.size()==0) {
+                    Toast.makeText(getApplicationContext(), "Folder is empty", Toast.LENGTH_LONG).show();
                 }
+
+
+
+            } else {
+                Toast.makeText(getApplicationContext(), "Error encountered", Toast.LENGTH_LONG).show();
             }
+        }
+    }
 
 
         }
